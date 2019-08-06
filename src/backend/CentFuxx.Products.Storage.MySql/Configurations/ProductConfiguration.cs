@@ -1,5 +1,6 @@
 ﻿using System;
 using CentFuxx.Products.Domain;
+using CentFuxx.Products.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

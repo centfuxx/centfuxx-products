@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
@@ -15,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CentFuxx.Products.Api\CentFuxx.Products.Api.csproj" />
+    <ProjectReference Include="..\CentFuxx.Products.Domain\CentFuxx.Products.Domain.csproj" />
     <ProjectReference Include="..\CentFuxx.Products.Storage.EfCore.MySql\CentFuxx.Products.Storage.EfCore.MySql.csproj" />
   </ItemGroup>
 

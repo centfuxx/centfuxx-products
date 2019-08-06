@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CentFuxx.Products.Domain
+namespace CentFuxx.Products.Domain.Products
 {
     public sealed class Product : Entity<long>
     {

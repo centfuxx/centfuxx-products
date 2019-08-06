@@ -1,4 +1,4 @@
-﻿using CentFuxx.Products.Domain;
+﻿using CentFuxx.Products.Domain.Products;
 using CentFuxx.Products.Storage.EfCore.Configurations;
 using Microsoft.EntityFrameworkCore;
 

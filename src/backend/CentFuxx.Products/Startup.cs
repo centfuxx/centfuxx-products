@@ -1,7 +1,12 @@
-﻿using System.IO;
+﻿using System.Configuration;
+using System.IO;
+using AutoMapper;
+using CentFuxx.Products.Domain.Products;
+using CentFuxx.Products.Storage.EfCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +24,24 @@ namespace CentFuxx.Products
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<ProductsContext>(options =>
+            {
+                switch (Configuration["Storage"])
+                {
+                    case "MySQL":
+                        options.UseMySQL(Configuration.GetConnectionString("MySQL"));
+                        break;
+                    default:
+                        throw new ConfigurationErrorsException("No storage configured");
+                }
+            });
+
+            services.AddScoped<ProductsRepository, EfCoreProductsRepository>();
+
+            services.AddAutoMapper(typeof(Api.Products.Product).Assembly);
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
