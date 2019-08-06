@@ -14,4 +14,8 @@
     <None Include="wwwroot\*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CentFuxx.Products.Storage.EfCore.MySql\CentFuxx.Products.Storage.EfCore.MySql.csproj" />
+  </ItemGroup>
+
 </Project>
