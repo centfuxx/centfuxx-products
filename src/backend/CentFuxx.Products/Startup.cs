@@ -24,6 +24,7 @@ namespace CentFuxx.Products
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddDbContext<ProductsContext>(options =>
             {
                 switch (Configuration["Storage"])
@@ -57,6 +58,7 @@ namespace CentFuxx.Products
                 app.UseHsts();
             }
 
+            app.UseCors(opt => opt.AllowAnyHeader().AllowAnyOrigin().AllowCredentials().AllowAnyMethod());
             app.UseHttpsRedirection();
             app.UseMvc();
 
