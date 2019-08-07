@@ -1,0 +1,5 @@
+@import "~@angular/material/theming";
+
+.product-background {
+    background-color: mat-color($mat-blue-grey, lighter);
+}
