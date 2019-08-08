@@ -27,7 +27,7 @@ steps:
   inputs:
     command: 'custom' 
     workingDir: 'src/frontend'# Optional
-    customCommand: 'run build --prod=true'
+    customCommand: 'run build-prod'
 
 - task: NuGetToolInstaller@1
 
