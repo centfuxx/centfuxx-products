@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+﻿using System;
 using System.IO;
 using AutoMapper;
 using CentFuxx.Products.Domain.Products;
@@ -31,12 +31,13 @@ namespace CentFuxx.Products
                 switch (Configuration["Storage"])
                 {
                     case "MySQL":
-                        options.UseMySQL(
+                        options.UseMySql(
                             Configuration.GetConnectionString("MySQL"),
                             opt => opt.MigrationsAssembly(typeof(MySqlProductContext).Assembly.FullName));
                         break;
+
                     default:
-                        throw new ConfigurationErrorsException("No storage configured");
+                        throw new InvalidOperationException("No storage configured");
                 }
             });
 
@@ -102,7 +103,7 @@ namespace CentFuxx.Products
                         break;
 
                     default:
-                        throw new ConfigurationErrorsException("No storage configured");
+                        throw new InvalidOperationException("No storage configured");
                 }
             }
         }

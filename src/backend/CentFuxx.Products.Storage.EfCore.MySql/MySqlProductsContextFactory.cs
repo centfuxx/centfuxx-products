@@ -12,7 +12,7 @@ namespace CentFuxx.Products.Storage.EfCore.MySql
                 .AddEnvironmentVariables("CENTFUXXPRODUCTS_")
                 .Build();
             var optionsBuilder = new DbContextOptionsBuilder<MySqlProductContext>();
-            optionsBuilder.UseMySQL(_configuration.GetConnectionString("MySQL"));
+            optionsBuilder.UseMySql(_configuration.GetConnectionString("MySQL"));
             return new MySqlProductContext(optionsBuilder.Options);
         }
     }
