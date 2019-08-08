@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace CentFuxx.Products
 {
@@ -26,20 +27,23 @@ namespace CentFuxx.Products
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddDbContext<ProductsContext>(options =>
+
+            switch (Configuration["Storage"])
             {
-                switch (Configuration["Storage"])
-                {
-                    case "MySQL":
+                case "MySQL":
+                    services.AddDbContext<ProductsContext>(options =>
+                    {
                         options.UseMySql(
                             Configuration.GetConnectionString("MySQL"),
-                            opt => opt.MigrationsAssembly(typeof(MySqlProductContext).Assembly.FullName));
-                        break;
+                            opt => opt.MigrationsAssembly("CentFuxx.Products.Storage.EfCore.MySql"));
+                    });
 
-                    default:
-                        throw new InvalidOperationException("No storage configured");
-                }
-            });
+                    break;
+
+                default:
+                    throw new InvalidOperationException("No storage configured");
+            }
+
 
             services.AddScoped<ProductsRepository, EfCoreProductsRepository>();
 
@@ -50,9 +54,9 @@ namespace CentFuxx.Products
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            UpdateDatabase(app);
+            UpdateDatabase(app, loggerFactory);
 
             if (env.IsDevelopment())
             {
@@ -89,14 +93,20 @@ namespace CentFuxx.Products
             });
         }
 
-        private void UpdateDatabase(IApplicationBuilder app)
+        private void UpdateDatabase(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 switch (Configuration["Storage"])
                 {
                     case "MySQL":
-                        using (var context = serviceScope.ServiceProvider.GetService<ProductsContext>())
+                        var optionsBuilder = new DbContextOptionsBuilder<MySqlProductContext>();
+                        optionsBuilder
+                            .UseMySql(
+                                Configuration.GetConnectionString("MySQL"),
+                                opt => opt.MigrationsAssembly(typeof(MySqlProductContext).Assembly.GetName().Name))
+                            .UseLoggerFactory(loggerFactory);
+                        using (var context = new MySqlProductContext(optionsBuilder.Options))
                         {
                             context.Database.Migrate();
                         }
