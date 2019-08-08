@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,7 +31,9 @@ namespace CentFuxx.Products
                 switch (Configuration["Storage"])
                 {
                     case "MySQL":
-                        options.UseMySQL(Configuration.GetConnectionString("MySQL"));
+                        options.UseMySQL(
+                            Configuration.GetConnectionString("MySQL"),
+                            opt => opt.MigrationsAssembly(typeof(MySqlProductContext).Assembly.FullName));
                         break;
                     default:
                         throw new ConfigurationErrorsException("No storage configured");
@@ -94,7 +95,7 @@ namespace CentFuxx.Products
                 switch (Configuration["Storage"])
                 {
                     case "MySQL":
-                        using (var context = serviceScope.ServiceProvider.GetService<MySqlProductContext>())
+                        using (var context = serviceScope.ServiceProvider.GetService<ProductsContext>())
                         {
                             context.Database.Migrate();
                         }
