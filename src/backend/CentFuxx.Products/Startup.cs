@@ -3,10 +3,12 @@ using System.IO;
 using AutoMapper;
 using CentFuxx.Products.Domain.Products;
 using CentFuxx.Products.Storage.EfCore;
+using CentFuxx.Products.Storage.EfCore.MySql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -48,6 +50,8 @@ namespace CentFuxx.Products
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            UpdateDatabase(app);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -73,7 +77,7 @@ namespace CentFuxx.Products
             app.Use(async (context, next) =>
             {
                 await next();
-                if (context.Response.StatusCode == 404 
+                if (context.Response.StatusCode == 404
                     && !Path.HasExtension(context.Request.Path.Value))
                 {
                     context.Request.Path = "/index.html";
@@ -81,6 +85,25 @@ namespace CentFuxx.Products
                     await next();
                 }
             });
+        }
+
+        private void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                switch (Configuration["Storage"])
+                {
+                    case "MySQL":
+                        using (var context = serviceScope.ServiceProvider.GetService<MySqlProductContext>())
+                        {
+                            context.Database.Migrate();
+                        }
+                        break;
+
+                    default:
+                        throw new ConfigurationErrorsException("No storage configured");
+                }
+            }
         }
     }
 }
