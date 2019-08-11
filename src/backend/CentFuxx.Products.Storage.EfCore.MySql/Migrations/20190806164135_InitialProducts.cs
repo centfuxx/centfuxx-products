@@ -11,7 +11,7 @@ namespace CentFuxx.Products.Storage.EfCore.MySql.Migrations
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("MySql:ValueGeneratedOnAdd", true),
                     name = table.Column<string>(nullable: false),
                     description = table.Column<string>(nullable: true)
                 },

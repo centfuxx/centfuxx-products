@@ -1,0 +1,40 @@
+<div class="container">
+    <mat-card class="add-product">
+        <mat-card-title>Add a new Product</mat-card-title>
+        <mat-card-content>
+            <ng-container [formGroup]="formGroup">
+                <div class="form">
+                    <mat-form-field
+                        class="example-full-width"
+                        [hideRequiredMarker]="false"
+                    >
+                        <input
+                            matInput
+                            placeholder="Name"
+                            formControlName="name"
+                        />
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <textarea
+                            matInput
+                            placeholder="Description"
+                            formControlName="description"
+                        ></textarea>
+                    </mat-form-field>
+                </div>
+            </ng-container>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-raised-button (click)="cancel()">Cancel</button>
+            <button
+                mat-raised-button
+                color="primary"
+                [disabled]="!formGroup.valid"
+                (click)="save()"
+            >
+                Save
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

@@ -4,6 +4,7 @@ using AutoMapper;
 using CentFuxx.Products.Domain.Products;
 using CentFuxx.Products.Storage.EfCore;
 using CentFuxx.Products.Storage.EfCore.MySql;
+using CentFuxx.Products.Storage.EfCore.Products;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

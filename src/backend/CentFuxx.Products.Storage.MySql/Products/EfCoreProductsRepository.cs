@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using CentFuxx.Products.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
-namespace CentFuxx.Products.Storage.EfCore
+namespace CentFuxx.Products.Storage.EfCore.Products
 {
     public class EfCoreProductsRepository : ProductsRepository
     {
@@ -22,6 +21,18 @@ namespace CentFuxx.Products.Storage.EfCore
             return await _context.Products
                 .OrderBy(x => x.Name)
                 .ToListAsync();
+        }
+
+        public async Task<Product> Add(Product product)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                await _context.Products.AddAsync(product);
+                _context.SaveChanges();
+                transaction.Commit();
+            }
+
+            return product;
         }
     }
 }
