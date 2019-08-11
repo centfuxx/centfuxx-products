@@ -16,4 +16,11 @@ export class ProductDataService {
             `${environment.baseUrI}${ProductDataService.URI}`
         );
     }
+
+    public save(product: Product) {
+        return this.http.post<Product>(
+            `${environment.baseUrI}${ProductDataService.URI}`,
+            product
+        );
+    }
 }

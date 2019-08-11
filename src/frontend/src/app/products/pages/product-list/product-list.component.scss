@@ -1,4 +1,12 @@
-.product-card {
-    max-width: 400px;
-    margin: 10px;
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.fab-container {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    z-index: 100;
 }

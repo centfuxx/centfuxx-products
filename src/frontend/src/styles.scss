@@ -28,6 +28,8 @@ $candy-app-theme: mat-light-theme(
 // that you are using.
 @include angular-material-theme($candy-app-theme);
 
+@import "~material-design-icons/iconfont/material-icons.css";
+
 html {
     height: 100%;
     width: 100%;

@@ -7,6 +7,7 @@ import { ProductCardComponent } from "./components/product-card/product-card.com
 import { AddProductComponent } from "./pages/add-product/add-product.component";
 import { RouterModule, Routes } from "@angular/router";
 import { ProductsComponent } from "./components/products/products.component";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 const routes: Routes = [
     {
@@ -30,6 +31,8 @@ const routes: Routes = [
     exports: [ProductListComponent],
     imports: [
         RouterModule.forChild(routes),
+        FormsModule,
+        ReactiveFormsModule,
         CommonModule,
         HttpClientModule,
         MaterialModule
