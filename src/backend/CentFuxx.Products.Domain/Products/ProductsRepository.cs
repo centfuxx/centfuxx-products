@@ -7,5 +7,6 @@ namespace CentFuxx.Products.Domain.Products
     {
         Task<IEnumerable<Product>> GetAll();
         Task<Product> Add(Product product);
+        Task<Product> Update(Product product);
     }
 }

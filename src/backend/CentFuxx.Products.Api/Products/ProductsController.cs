@@ -47,5 +47,23 @@ namespace CentFuxx.Products.Api.Products
                 new { id = productEntity.Id}, 
                 _mapper.Map<Product>(productEntity));
         }
+
+        [HttpPut]
+        [Route("{id:long}")]
+        public async Task<ActionResult<Product>> Update(long id, [FromBody] Product product)
+        {
+            if (product == null)
+            {
+                return BadRequest("Product missing");
+            }
+
+            if (product.Id != id)
+            {
+                return Conflict("Id mismatch");
+            }
+
+            var updatedProduct = await _repository.Update(_mapper.Map<Domain.Products.Product>(product));
+            return Ok(_mapper.Map<Product>(updatedProduct));
+        }
     }
 }
