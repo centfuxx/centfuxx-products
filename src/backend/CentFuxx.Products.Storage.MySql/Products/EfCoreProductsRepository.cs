@@ -22,6 +22,11 @@ namespace CentFuxx.Products.Storage.EfCore.Products
                 .ToListAsync();
         }
 
+        public async Task<Product> Get(long id)
+        {
+            return await _context.Products.SingleAsync(x => x.Id == id);
+        }
+
         public async Task<Product> Add(Product product)
         {
             using (var transaction = _context.Database.BeginTransaction())

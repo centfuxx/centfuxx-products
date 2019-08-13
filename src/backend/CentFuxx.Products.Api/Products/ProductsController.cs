@@ -29,7 +29,13 @@ namespace CentFuxx.Products.Api.Products
         [Route("{id:long}", Name = nameof(GetProduct))]
         public async Task<ActionResult<Product>> GetProduct(long id)
         {
-            return await Task.FromResult<Product>(null);
+            var product = await _repository.Get(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return  Ok(_mapper.Map<Product>(product));
         }
 
         [HttpPost]
