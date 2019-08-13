@@ -9,6 +9,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { ProductsComponent } from "./components/products/products.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { EditProductComponent } from "./pages/edit-product/edit-product.component";
+import { ProductFormComponent } from "./components/product-form/product-form.component";
 
 const routes: Routes = [
     {
@@ -29,7 +30,8 @@ const routes: Routes = [
         ProductCardComponent,
         AddProductComponent,
         ProductsComponent,
-        EditProductComponent
+        EditProductComponent,
+        ProductFormComponent
     ],
     exports: [ProductListComponent],
     imports: [
