@@ -19,6 +19,15 @@ export class ProductDataService {
     }
 
     public save(product: Product) {
+        if (product.id && typeof product.id === "number") {
+            // update
+            return this.http.put(
+                `${environment.baseUrI}${ProductDataService.URI}/${product.id}`,
+                product
+            );
+        }
+
+        // create
         return this.http.post<Product>(
             `${environment.baseUrI}${ProductDataService.URI}`,
             product

@@ -1,5 +1,11 @@
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Component, OnInit, Input } from "@angular/core";
+import {
+    Component,
+    OnInit,
+    Input,
+    OnChanges,
+    SimpleChanges
+} from "@angular/core";
 import { Product } from "../../models/product";
 
 @Component({
@@ -7,7 +13,7 @@ import { Product } from "../../models/product";
     templateUrl: "./product-form.component.html",
     styleUrls: ["./product-form.component.scss"]
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnChanges {
     @Input() public product: Product;
 
     // tslint:disable-next-line:variable-name
@@ -15,12 +21,24 @@ export class ProductFormComponent implements OnInit {
 
     public descriptionMaxLength = 255;
 
-    constructor(private formBuilder: FormBuilder) {}
-
-    ngOnInit() {
+    constructor(private formBuilder: FormBuilder) {
         this._formGroup = this.formBuilder.group({
             name: ["", Validators.required],
             description: ["", Validators.maxLength(this.descriptionMaxLength)]
+        });
+    }
+
+    ngOnInit() {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (!this._formGroup) {
+            return;
+        }
+
+        this._formGroup.patchValue({
+            id: this.product.id,
+            name: this.product.name,
+            description: this.product.description
         });
     }
 
