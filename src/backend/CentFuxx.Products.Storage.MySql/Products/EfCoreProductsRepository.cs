@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
 using CentFuxx.Products.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +22,11 @@ namespace CentFuxx.Products.Storage.EfCore.Products
                 .ToListAsync();
         }
 
+        public async Task<Product> Get(long id)
+        {
+            return await _context.Products.SingleAsync(x => x.Id == id);
+        }
+
         public async Task<Product> Add(Product product)
         {
             using (var transaction = _context.Database.BeginTransaction())
@@ -33,6 +37,19 @@ namespace CentFuxx.Products.Storage.EfCore.Products
             }
 
             return product;
+        }
+
+        public async Task<Product> Update(Product product)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                _context.Products.Attach(product);
+                _context.Entry(product).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                transaction.Commit();
+
+                return product;
+            }
         }
     }
 }

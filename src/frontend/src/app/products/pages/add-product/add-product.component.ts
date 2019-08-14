@@ -1,6 +1,6 @@
+import { ProductFormComponent } from "./../../components/product-form/product-form.component";
 import { ProductDataService } from "./../../services/product-data.service";
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Product } from "../../models/product";
 import { Router } from "@angular/router";
 
@@ -10,28 +10,22 @@ import { Router } from "@angular/router";
     styleUrls: ["./add-product.component.scss"]
 })
 export class AddProductComponent implements OnInit {
-    public formGroup: FormGroup;
-    public descriptionMaxLength = 255;
+    @ViewChild("productForm", { static: true })
+    public productForm: ProductFormComponent;
 
     constructor(
         private router: Router,
-        private formBuilder: FormBuilder,
         private productService: ProductDataService
     ) {}
 
-    ngOnInit() {
-        this.formGroup = this.formBuilder.group({
-            name: ["", Validators.required],
-            description: ["", Validators.maxLength(this.descriptionMaxLength)]
-        });
-    }
+    ngOnInit() {}
 
     cancel() {
         this.toList();
     }
 
     save() {
-        const currentFormValue = this.formGroup.value;
+        const currentFormValue = this.productForm.formGroup.value;
         const product = {
             name: currentFormValue.name,
             description: currentFormValue.description

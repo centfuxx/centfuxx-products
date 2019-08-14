@@ -8,6 +8,8 @@ import { AddProductComponent } from "./pages/add-product/add-product.component";
 import { RouterModule, Routes } from "@angular/router";
 import { ProductsComponent } from "./components/products/products.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { EditProductComponent } from "./pages/edit-product/edit-product.component";
+import { ProductFormComponent } from "./components/product-form/product-form.component";
 
 const routes: Routes = [
     {
@@ -16,6 +18,7 @@ const routes: Routes = [
         children: [
             { path: "list", component: ProductListComponent },
             { path: "add", component: AddProductComponent },
+            { path: ":id/edit", component: EditProductComponent },
             { path: "", redirectTo: "list", pathMatch: "full" }
         ]
     }
@@ -26,7 +29,9 @@ const routes: Routes = [
         ProductListComponent,
         ProductCardComponent,
         AddProductComponent,
-        ProductsComponent
+        ProductsComponent,
+        EditProductComponent,
+        ProductFormComponent
     ],
     exports: [ProductListComponent],
     imports: [

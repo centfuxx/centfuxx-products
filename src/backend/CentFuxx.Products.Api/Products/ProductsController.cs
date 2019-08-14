@@ -29,7 +29,13 @@ namespace CentFuxx.Products.Api.Products
         [Route("{id:long}", Name = nameof(GetProduct))]
         public async Task<ActionResult<Product>> GetProduct(long id)
         {
-            return await Task.FromResult<Product>(null);
+            var product = await _repository.Get(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return  Ok(_mapper.Map<Product>(product));
         }
 
         [HttpPost]
@@ -46,6 +52,24 @@ namespace CentFuxx.Products.Api.Products
             return CreatedAtAction(nameof(GetProduct), 
                 new { id = productEntity.Id}, 
                 _mapper.Map<Product>(productEntity));
+        }
+
+        [HttpPut]
+        [Route("{id:long}")]
+        public async Task<ActionResult<Product>> Update(long id, [FromBody] Product product)
+        {
+            if (product == null)
+            {
+                return BadRequest("Product missing");
+            }
+
+            if (product.Id != id)
+            {
+                return Conflict("Id mismatch");
+            }
+
+            var updatedProduct = await _repository.Update(_mapper.Map<Domain.Products.Product>(product));
+            return Ok(_mapper.Map<Product>(updatedProduct));
         }
     }
 }
