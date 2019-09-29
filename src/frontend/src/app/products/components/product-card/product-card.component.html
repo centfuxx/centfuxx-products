@@ -5,11 +5,8 @@
     </mat-card-content>
     <mat-card-actions>
         <button mat-raised-button color="primary">Details</button>
-        <a
-            mat-raised-button
-            [routerLink]="['/products', product.id, 'edit']"
-            routerLinkActive="router-link-active"
-            ><mat-icon>edit</mat-icon></a
-        >
+        <a mat-raised-button [routerLink]="['/products', product.id, 'edit']" routerLinkActive="router-link-active">
+            <mat-icon>edit</mat-icon>
+        </a>
     </mat-card-actions>
 </mat-card>
