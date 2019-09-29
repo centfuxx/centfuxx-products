@@ -1,3 +1,4 @@
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { MaterialModule } from "./../material/material.module";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
@@ -36,6 +37,7 @@ const routes: Routes = [
     exports: [ProductListComponent],
     imports: [
         RouterModule.forChild(routes),
+        FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
