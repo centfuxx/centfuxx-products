@@ -1,12 +1,14 @@
-.container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
 .fab-container {
     position: fixed;
     bottom: 16px;
     right: 16px;
     z-index: 100;
+}
+
+.container {
+    flex-wrap: wrap;
+}
+
+.box {
+    padding: 0.5rem;
 }

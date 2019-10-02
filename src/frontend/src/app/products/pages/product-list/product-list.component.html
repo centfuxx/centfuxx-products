@@ -1,8 +1,17 @@
-<div class="container">
-    <ng-container *ngFor="let product of products$ | async">
-        <app-product-card [product]="product"></app-product-card>
+<div fxLayout="row" fxLayout.xs="column" class="container">
+    <ng-container *ngIf="products$ | async as products">
+        <ng-container *ngFor="let product of products">
+            <div fxFlex.xs="100" fxFlex.sm="50" fxFlex.md="25" fxFlex.lg="20" fxFlex.xl="16.66" class="box">
+                <app-product-card [product]="product"></app-product-card>
+            </div>
+        </ng-container>
+
     </ng-container>
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="box">
+        <mat-spinner [fxShow]="isLoading"></mat-spinner>
+    </div>
 </div>
+
 <div class="fab-container">
     <a mat-fab [routerLink]="['../add']">
         <i class="material-icons">add</i>
