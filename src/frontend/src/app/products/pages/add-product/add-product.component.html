@@ -1,17 +1,12 @@
-<div class="container">
-    <mat-card class="add-product">
+<div fxLayout="column">
+    <mat-card fxFlex="100">
         <mat-card-title>Add a new Product</mat-card-title>
         <mat-card-content>
             <app-product-form #productForm></app-product-form>
         </mat-card-content>
         <mat-card-actions align="end">
             <button mat-raised-button (click)="cancel()">Cancel</button>
-            <button
-                mat-raised-button
-                color="primary"
-                [disabled]="!productForm.formGroup.valid"
-                (click)="save()"
-            >
+            <button mat-raised-button color="primary" [disabled]="!productForm.formGroup.valid" (click)="save()">
                 Save
             </button>
         </mat-card-actions>
