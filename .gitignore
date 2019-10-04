@@ -331,3 +331,4 @@ ASALocalRun/
 
 src/backend/CentFuxx.Products/wwwroot/*
 !src/backend/CentFuxx.Products/wwwroot/.gitkeep
+.gradle/

@@ -1,0 +1,13 @@
+{
+    "appId": "de.centfuxx.products",
+    "appName": "CentFuxx Products",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "../backend/CentFuxx.Products/wwwroot",
+    "android": {
+        "backgroundColor": "#ffffffff",
+        "allowMixedContent": true,
+        "captureInput": true,
+        "webContentsDebuggingEnabled": true
+    }
+}
