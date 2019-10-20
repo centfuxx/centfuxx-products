@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CentFuxx.Products.Application.Products.Queries.GetProductList
+﻿namespace CentFuxx.Products.Application.Products.Models
 {
     public class ProductDto
     {

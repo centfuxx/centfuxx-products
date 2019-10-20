@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CentFuxx.Products.Application.Products.Models;
 using CentFuxx.Products.Application.Repositories;
 using CentFuxx.Products.Domain.Products;
 
