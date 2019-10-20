@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CentFuxx.Products.Application.Repositories;
 using CentFuxx.Products.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace CentFuxx.Products.Storage.EfCore.Products
 {
-    public class EfCoreProductsRepository : ProductsRepository
+    public class EfCoreProductsRepository : IProductsRepository
     {
         private readonly ProductsContext _context;
 

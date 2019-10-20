@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using AutoMapper;
+using CentFuxx.Products.Application.Repositories;
 using CentFuxx.Products.Domain.Products;
 using CentFuxx.Products.Storage.EfCore;
 using CentFuxx.Products.Storage.EfCore.MySql;
@@ -45,8 +46,8 @@ namespace CentFuxx.Products
                     throw new InvalidOperationException("No storage configured");
             }
 
-
-            services.AddScoped<ProductsRepository, EfCoreProductsRepository>();
+            services.AddApplication();
+            
 
             services.AddAutoMapper(typeof(Api.Products.Product).Assembly);
 

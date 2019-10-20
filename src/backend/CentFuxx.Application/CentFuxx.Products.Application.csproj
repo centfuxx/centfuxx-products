@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
+    <Folder Include="Products\Commands\AddProduct\" />
+    <Folder Include="Products\Commands\EditProduct\" />
+    <Folder Include="Products\Commands\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CentFuxx.Application\CentFuxx.Products.Application.csproj" />
     <ProjectReference Include="..\CentFuxx.Products.Domain\CentFuxx.Products.Domain.csproj" />
   </ItemGroup>
 

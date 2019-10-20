@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CentFuxx.Application\CentFuxx.Products.Application.csproj" />
     <ProjectReference Include="..\CentFuxx.Products.Api\CentFuxx.Products.Api.csproj" />
     <ProjectReference Include="..\CentFuxx.Products.Domain\CentFuxx.Products.Domain.csproj" />
     <ProjectReference Include="..\CentFuxx.Products.Storage.EfCore.MySql\CentFuxx.Products.Storage.EfCore.MySql.csproj" />

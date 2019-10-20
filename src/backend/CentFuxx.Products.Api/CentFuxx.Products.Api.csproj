@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CentFuxx.Application\CentFuxx.Products.Application.csproj" />
     <ProjectReference Include="..\CentFuxx.Products.Domain\CentFuxx.Products.Domain.csproj" />
   </ItemGroup>
 
